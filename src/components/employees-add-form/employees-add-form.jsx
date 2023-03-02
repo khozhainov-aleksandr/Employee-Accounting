@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import nextId from "react-id-generator";
 
 import './employees-add-form.css';
 
 const EmployeesAddForm = ({ newUser }) => {
+  const newUserID = nextId('User_ID_');
+
   const [userName, setUserName] = useState('');
   const [userSalary, setUserSalary] = useState('');
 
@@ -10,7 +13,7 @@ const EmployeesAddForm = ({ newUser }) => {
     e.preventDefault();
 
     newUser({
-      id: '1',
+      id: newUserID,
       name: userName || 'No Name',
       salary: userSalary || 0,
       increase: false,
