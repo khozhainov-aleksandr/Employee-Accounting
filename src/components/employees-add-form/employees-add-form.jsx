@@ -16,6 +16,7 @@ const EmployeesAddForm = ({ newUser }) => {
       id: newUserID,
       name: userName || 'No Name',
       salary: userSalary || 0,
+      rise: false,
       increase: false,
     });
 

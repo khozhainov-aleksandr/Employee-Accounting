@@ -1,28 +1,23 @@
 import ClassNames from 'classnames';
 
-import { useState } from 'react';
-
 import './employees-list-item.css';
 
-const EmployeesListItem = ({name, salary, increase = false, onDelete}) => {
-  const [cookie, setCookie] = useState(increase);
-
-  const onIncrease = () => (
-    setCookie((actualState) => !actualState)
-  );
-
+const EmployeesListItem = ({ name, salary, increase, rise, onDelete, onToggleIncrease, onToggleRise }) => {
   return (
     <li className={
       ClassNames(
         'list-group-item d-flex justify-content-between', {
-          'increase': cookie,
+          'increase': increase,
+          'like': rise,
         }
       )
     }>
-      <span className="list-group-item-label">{name}</span>
+      <span className="list-group-item-label" onClick={onToggleRise}>
+        {name}
+      </span>
       <input type="text" className="list-group-item-input" defaultValue={`${salary}$`} />
       <div className='d-flex justify-content-center align-items-center'>
-        <button type="button" className="btn-cookie btn-sm" onClick={onIncrease}>
+        <button type="button" className="btn-cookie btn-sm" onClick={onToggleIncrease}>
           <i className="fas fa-cookie"></i>
         </button>
 
