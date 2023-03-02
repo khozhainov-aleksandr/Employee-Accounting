@@ -48,7 +48,7 @@ function App() {
 
   return (
     <div className="app">
-      <AppInfo />
+      <AppInfo userData={userData} />
 
       <div className="search-panel">
         <SearchPanel/>
