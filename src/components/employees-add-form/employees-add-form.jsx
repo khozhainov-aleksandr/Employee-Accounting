@@ -1,6 +1,25 @@
+import { useState } from 'react';
+
 import './employees-add-form.css';
 
-const EmployeesAddForm = () => {
+const EmployeesAddForm = ({ newUser }) => {
+  const [userName, setUserName] = useState('');
+  const [userSalary, setUserSalary] = useState('');
+
+  const addButtonToForm = (e) => {
+    e.preventDefault();
+
+    newUser({
+      id: '1',
+      name: userName || 'No Name',
+      salary: userSalary || 0,
+      increase: false,
+    });
+
+    setUserName('');
+    setUserSalary('');
+  }
+
   return (
     <div className="app-add-form">
       <h3>Add a new Employee</h3>
@@ -10,14 +29,26 @@ const EmployeesAddForm = () => {
           type="text"
           className="form-control new-post-label"
           placeholder="What's his name?"
+          value={userName}
+          onChange={(event) => {
+            setUserName(event.target.value);
+          }}
         />
         <input
           type="number"
           className="form-control new-post-label"
           placeholder="Salary in $?"
+          value={userSalary}
+          onChange={(event) => {
+            setUserSalary(event.target.value);
+          }}
         />
 
-        <button type="submit" className="btn btn-outline-light">
+        <button
+          type="submit"
+          className="btn btn-outline-light"
+          onClick={addButtonToForm}
+        >
           Add
         </button>
       </form>

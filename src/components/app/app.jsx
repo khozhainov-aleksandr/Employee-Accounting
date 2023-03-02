@@ -29,6 +29,10 @@ function App() {
     setUserData(allUsers => allUsers.filter(user => user.id !== id));
   }
 
+  const getNewUser = (newUser) => {
+    setUserData((arrUsers) => [...arrUsers, newUser]);
+  }
+
   return (
     <div className="app">
       <AppInfo />
@@ -39,7 +43,7 @@ function App() {
       </div>
         
       <EmployeesList data={userData} onDelete={deleteItem} />
-      <EmployeesAddForm />
+      <EmployeesAddForm newUser={getNewUser} />
     </div>
   );
 }
