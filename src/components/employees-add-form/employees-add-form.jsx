@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import nextId from "react-id-generator";
 
 import './employees-add-form.css';
@@ -8,14 +8,19 @@ const EmployeesAddForm = ({ newUser }) => {
 
   const [userName, setUserName] = useState('');
   const [userSalary, setUserSalary] = useState('');
+  const [btnDisabled, setBtnDisabled] = useState(true);
+
+  useEffect(() => {
+    (userName.length > 2 && userSalary.length > 1) ? setBtnDisabled(false) : setBtnDisabled(true);
+  }, [userName, userSalary]);
 
   const addButtonToForm = (e) => {
     e.preventDefault();
 
     newUser({
       id: newUserID,
-      name: userName || 'No Name',
-      salary: userSalary || 0,
+      name: userName,
+      salary: userSalary,
       rise: false,
       increase: false,
     });
@@ -47,10 +52,10 @@ const EmployeesAddForm = ({ newUser }) => {
             setUserSalary(event.target.value);
           }}
         />
-
         <button
           type="submit"
           className="btn btn-outline-light"
+          disabled={btnDisabled}
           onClick={addButtonToForm}
         >
           Add

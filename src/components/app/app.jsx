@@ -33,17 +33,8 @@ function App() {
     setUserData(allUsers => allUsers.filter(user => user.id !== id));
   }
 
-  const onToggleIncrease = (id) => {
-    const indexElement = userData.findIndex(element => element.id === id);
-    const oldElement = userData[indexElement];
-    const newElement = {...oldElement, increase: !oldElement.increase}
-    const newArr = [...userData.slice(0, indexElement), newElement, ...userData.slice(indexElement + 1)];
-
-    setUserData(newArr);
-  }
-
-  const onToggleRise = (id) => {
-    setUserData(userData.map(element => element.id === id ? {...element, rise: !element.rise} : element));
+  const onToggleProp = (id, prop) => {
+    setUserData(userData.map(element => element.id === id ? {...element, [prop]: !element[prop]} : element));
   }
 
   return (
@@ -57,9 +48,8 @@ function App() {
         
       <EmployeesList
         data={userData}
-        onToggleIncrease={onToggleIncrease}
         onDelete={deleteItem}
-        onToggleRise={onToggleRise}
+        onToggleProp={onToggleProp}
       />
 
       <EmployeesAddForm
