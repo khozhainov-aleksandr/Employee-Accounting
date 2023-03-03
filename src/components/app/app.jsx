@@ -20,6 +20,7 @@ const data = [
 
 function App() {
   const [userData, setUserData] = useState([]);
+  const [findUser, setFindUser] = useState('');
 
   useEffect(() => {
     setUserData(data);
@@ -37,17 +38,23 @@ function App() {
     setUserData(userData.map(element => element.id === id ? {...element, [prop]: !element[prop]} : element));
   }
 
+  const searchInUsers = (items, term) => {
+    return (term.length === 0) ? items : items.filter(item => item.name.toLowerCase().indexOf(term.toLowerCase()) > -1);
+  }
+
+  const visibleData = searchInUsers(userData, findUser);
+
   return (
     <div className="app">
       <AppInfo userData={userData} />
 
       <div className="search-panel">
-        <SearchPanel/>
+        <SearchPanel findUser={findUser} setFindUser={setFindUser} />
         <AppFilter/>
       </div>
         
       <EmployeesList
-        data={userData}
+        data={visibleData}
         onDelete={deleteItem}
         onToggleProp={onToggleProp}
       />
